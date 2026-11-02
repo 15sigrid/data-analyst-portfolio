@@ -8,3 +8,6 @@ venv/
 
 # Pythoni ajutised failid
 __pycache__/
+
+# VS Code seaded (sisaldavad andmebaasi ühenduse andmeid)
+.vscode/
