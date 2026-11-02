@@ -1,0 +1,10 @@
+# Saladused
+.env
+.env.*
+
+# Pythoni virtuaalkeskkond
+.venv/
+venv/
+
+# Pythoni ajutised failid
+__pycache__/
