@@ -18,6 +18,8 @@ Nädala 0 eesmärk:
 - Claude Project „DACA andmeanalüütika kursus” - AI-tuutor kursuse failidega - Failid ja juhised on lisatud
 - NotebookLM "DACA26et_SN"- RAG failidega on loodud
 
+![Seadistuse kontroll: Python ja Git versioonid](individual/setup-screenshot.png)
+
 ### Team work (Sales Analytics team)
 - GitHub (avaliku)repo urbanstyle-sales-analytics loomine, README lisamine ja collaboratorite lisamine, kutsumine
 - Team repository: https://github.com/15sigrid/urbanstyle-sales-analytics
