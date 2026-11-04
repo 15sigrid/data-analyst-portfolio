@@ -1,6 +1,6 @@
 # Junior Data Analyst Career Accelerator
 
-A hands-on 10-week mentorship program (Nov 2026 – Jan 2027) in which I work as a data analyst for **UrbanStyle**, an Estonian e-commerce startup, solving real business problems with real data.
+A hands-on 10-week mentorship program (Nov 2026 – Jan 2027) in which I work as a data analyst for **UrbanStyle**, a fast-growing Estonian fashion retailer (fictional case company), solving real business problems with real data.
 
 ## About this repository
 
@@ -12,6 +12,15 @@ This repository documents my work throughout the program: SQL queries, data clea
 - **Python / pandas**: analysis and customer segmentation
 - **Power BI**: interactive dashboards
 - **Git / GitHub**: version control and portfolio
+
+## Skills
+
+- **SQL / PostgreSQL:** creating tables, inserting data, SELECT, WHERE, ORDER BY, calculated columns
+- **Git / GitHub:** commit, push, .gitignore, collaborators, team repository setup
+- **Markdown:** README documentation, tables, links
+- **Supabase:** cloud database setup, SQL Editor, connection via VS Code (SQLTools)
+- **Python / pandas:** *(coming in weeks 7–8)*
+- **Power BI:** *(coming in weeks 5–6)*
 
 ## Program structure
 
@@ -31,7 +40,7 @@ This repository documents my work throughout the program: SQL queries, data clea
 
 ## Progress
 
-- [x] Week 0: Environment setup
+- [x] Week 0: Environment setup → [week-0](week-0/)
 - [ ] Week 1: SQL basics
 
 ## Author
