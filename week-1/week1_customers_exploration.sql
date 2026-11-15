@@ -89,3 +89,59 @@ FROM customers;
 -- Tulemus: 3150 rida, 2770 e-postiga, 2640 unikaalset e-posti, 380 rida ilma e-postita, 130 rida korduva e-postiga.
 -- Korduvad: COUNT(email) - COUNT(DISTINCT email). Töövihiku valem COUNT(*) - COUNT(DISTINCT email) loeks sisse ka 380 puuduvat e-posti ja annaks vale tulemuse.
 -- Õppetund: puuduv koma veergude vahel annab süntaksivea. Viga on sõna ees, mida veateade näitab.
+
+-- ===== Lisapäringud grupi demo põhjal =====
+
+-- Unikaalsed e-posti read 
+SELECT COUNT(DISTINCT email) AS unikaalseid_e_poste
+FROM customers;
+-- Tulemus: 2640 rida
+
+-- Korduvad e-posti read
+SELECT COUNT(email) - COUNT(DISTINCT email) AS korduvaid_ridu
+FROM customers;
+-- Tulemus. 130 rida
+
+-- Korduvad telefoninumbrid
+SELECT COUNT(phone) - COUNT(DISTINCT phone) AS korduvaid_ridu
+FROM customers;
+-- Tulemus: 150 rida. Klapib dokumentatsiooniga (~150 duplikaati).
+
+-- Telefoni ja e-posti duplikaatide vahe
+SELECT
+    (COUNT(phone) - COUNT(DISTINCT phone))      -- telefoni korduvad: 150
+  - (COUNT(email) - COUNT(DISTINCT email))      -- e-posti korduvad: 130
+    AS vahe
+FROM customers;
+-- Tulemus: 20 rida. Tõenäoliselt e-postita duplikaadid (nt Sirje Kuusk).
+
+-- Linnanimede variandid algsel kujul
+SELECT COUNT(DISTINCT city) AS linnu
+FROM customers;
+-- Tulemus: 54.
+
+-- Linnanimede variandid pärast suurtähtede eemaldamist
+SELECT COUNT(DISTINCT lower(city)) AS eri_kirjaviisiga
+FROM customers;
+-- Tulemus: 32. Osa erinevusi jääb alles.
+
+-- Linnanimede variandid pärast tühikute eemaldamist
+SELECT COUNT(DISTINCT trim(city)) AS tyhikuteta
+FROM customers;
+-- Tulemus: 34. Osa erinevusi jääb alles.
+
+-- Päris linnade arv (suurtähed ja tühikud eemaldatud)
+SELECT COUNT(DISTINCT lower(trim(city))) AS paris_linnu
+FROM customers;
+-- Tulemus: 12. Andmetes on mõlemat tüüpi vigu.
+
+-- Tallinn kõigi kirjaviisidega (suurtähed ja tühikud eemaldatud)
+SELECT COUNT(*) AS tallinna_kliente
+FROM customers
+WHERE lower(trim(city)) = 'tallinn';
+-- Tulemus: 1238 rida. Lihtsast päringust (city = 'Tallinn') jääb välja 103 rida, mitte 49, sest osal on ka tühikud.
+
+-- Puuduv lojaalsustase
+SELECT COUNT(*) - COUNT(loyalty_tier) AS puuduv_lojaalsustase
+FROM customers;
+-- Tulemus: 1260 rida (40%). NULL võib tähendada, et klient pole lojaalsusprogrammiga liitunud.
