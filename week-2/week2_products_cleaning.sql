@@ -146,3 +146,82 @@ GROUP BY category
 ORDER BY category;
 -- Tulemus: 5 ingliskeelset kategooriat, arvud samad (kokku 362). UPDATE õnnestus.
 -- NB: muudetud ainult products_test. Originaaltabel products on muutmata.
+
+-- =============================================
+-- DUPLIKAATIDE KUSTUTAMINE (products_test)
+-- =============================================
+
+-- 1. Orbude kontroll ENNE kustutamist (oodatav 0)
+-- sales tabel viitab toodetele product_id kaudu. Kui kustutan toote, millele mõni müük viitab,
+-- jääb see müük "orvuks" (müük on olemas, aga tema toodet enam pole).
+-- Päring loeb kokku müügid, mis viitavad duplikaattoodetele (ehk ridadele, mis kustutataks).
+SELECT COUNT(*) AS orvuks_jaavad_muugid
+FROM sales
+WHERE product_id IN (
+    SELECT product_id
+    FROM products_test
+    WHERE product_id NOT IN (
+        SELECT MIN(product_id) FROM products_test GROUP BY product_name
+    )
+);
+-- Tulemus: 0 – ükski müük ei viita duplikaatidele (ID-d 1351–1362), seega orvuks jäävaid müüke ei teki. Kustutada on ohutu.
+
+-- 2. Eelvaade: mitu duplikaatrida kustutataks? (oodatav 12)
+SELECT COUNT(*) AS kustutatakse
+FROM products_test
+WHERE product_id NOT IN (
+    SELECT MIN(product_id) FROM products_test GROUP BY product_name
+);
+-- Tulemus:12 rida kustutatakse
+
+-- Katse_õppimise eesmärgil
+SELECT product_name, MIN(product_id) AS originaal
+FROM products_test
+GROUP BY product_name
+ORDER BY originaal DESC;
+-- Tulemus: Päring toob välja 350 originaalsed toote read (min product_id järgi).
+-- NB: esimesel katsel panin kaks NOT IN-i üksteise sisse -> tulemus 350 (originaalid, mitte koopiad).
+-- Kaks eitust = jaatus. Eelvaade päästis: DELETE oleks kustutanud 350 originaali.
+
+-- 3. Kustutan duplikaadid (jäetakse alles väikseim product_id)
+DELETE
+-- SELECT *
+FROM products_test
+WHERE product_id NOT IN (
+    SELECT MIN(product_id) FROM products_test GROUP BY product_name
+);
+-- Tulemus: Päring_1 SELECT * - tagastab  12 kustutamisele kuuluvat rida (ID-d 1351–1362)
+-- Tulemus: Päring_2 DELETE – "Success. No rows returned" (päring käivitus ilma veata). Kas kustutati õiged read, näitab kontroll allpool.
+
+-- ALTERNATIIV (algajale lihtsam): sama asi (eelnev päring ühe valemina) kahe eraldi päringuga.
+-- Ei pea märkimisega mängima: esmalt SELECT, siis DELETE, mõlemal täpselt sama WHERE.
+-- NB: näidis, EI käivitatud (duplikaadid on juba ülal kustutatud, SELECT annaks nüüd 0 rida).
+-- 3a. Vaatan, mis kustuks
+SELECT *
+FROM products_test
+WHERE product_id NOT IN (
+    SELECT MIN(product_id) FROM products_test GROUP BY product_name
+);
+
+-- 3b. Kustutan samad read
+DELETE
+FROM products_test
+WHERE product_id NOT IN (
+    SELECT MIN(product_id) FROM products_test GROUP BY product_name
+);
+
+
+-- 4. Kontroll (a, b)
+
+-- 4a. Mitu rida on alles? (oodatav 350)
+SELECT COUNT(*) AS ridu_alles FROM products_test;
+
+-- 4b. Kas duplikaate on veel? (oodatav 0 rida)
+SELECT product_name, COUNT(*) AS koopiate_arv
+FROM products_test
+GROUP BY product_name
+HAVING COUNT(*) > 1;
+-- Tulemus: Kontroll 4a – 350 rida (362 - 12). Kustutati täpselt 12 rida.
+-- Tulemus: Kontroll 4b – 0 rida, ühtegi korduvat tootenime products_test tabelis enam ei ole.
+-- LOGI: products_test, DELETE 12 duplikaati tootenime järgi, alles väikseim product_id.
+-- Enne 362, pärast 350. Orbe ei tekkinud (ükski müük ei viidanud ID-dele 1351–1362).

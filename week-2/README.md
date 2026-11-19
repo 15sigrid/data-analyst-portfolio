@@ -23,7 +23,7 @@ Uurisin `products` tabelit testkoopial (`products_test`, 362 rida):
 
 | Kontroll | Leitud | Selgitus |
 |---|---|---|
-| Duplikaatsed tootenimed | 12 | Sama nimi 2 korda, koopiad ID-dega 1351–1362 |
+| Duplikaatsed tootenimed | 12 | Sama nimi 2 korda, koopiad ID-dega 1351–1362; kustutatud products_test-ist, alles 350 |
 | NULL nimi / kategooria / hinnad | 0 | Kriitilised väljad on täidetud |
 | Negatiivne või äärmuslik jaehind | 0 | Kalleim toode 434.08 € |
 | Ebajärjekindlad kategooriad | 0 | 5 kategooriat, igaüks ühes kirjapildis |
@@ -39,8 +39,21 @@ Kõige olulisem on kahjumiga hindade probleem, sest see moonutab marginaalianal�
 - Õppetund: esimesel katsel oli `UPDATE` juba käivitatud, seega eelvaade andis 0. Lähtestasin testkoopia ja kordasin õiges järjekorras.
 - Muudetud ainult `products_test`, originaaltabel on muutmata.
 
+## Duplikaatide eemaldamine (products_test)
+Eemaldasin testkoopiast 12 duplikaattoodet ja kontrollisin tulemust:
+1. **Orbude kontroll:** enne kustutamist kontrollisin, kas mõni müük viitab duplikaatidele (ID-d 1351–1362). Tulemus 0, seega orbe ei teki.
+2. **Eelvaade:** sama `WHERE`-ga `SELECT` näitas 12 kustutatavat rida.
+3. **Kustutamine:** `DELETE`, jäeti alles iga tootenime väikseim `product_id`.
+4. **Kontroll:** alles 350 rida (362 − 12), korduvaid tootenimesid 0.
+
+**Õppetund:** esimesel eelvaate katsel panin kaks `NOT IN`-i üksteise sisse ja sain 350 (originaalid, mitte koopiad). Kaks eitust annavad jaatuse. Eelvaade päästis, sest `DELETE` oleks kustutanud originaalid.
+
 ## Peamine järeldus
-8 toote jaehind on omahinnast madalam. Vajab äripoole kontrolli, kas tegu on andmeveaga või tegeliku kahjumiga müügiga. Kuni selgumiseni on marginaalianalüüs ebatäpne.
+Duplikaadid (12) on testkoopiast eemaldatud ja kontrollitud: tooteid on 350, mitte 362. Originaaltabelisse tuleb see muudatus viia alles pärast meeskonna ja ärikliendi kinnitust.
+
+Lahtiseks jääb kaks asja, mis vajavad äripoole otsust:
+- **8 toote jaehind on omahinnast madalam.** Kas see on andmeviga või päris kahjumiga müük? Kuni selgumiseni on marginaalianalüüs ebatäpne.
+- **18 tootel puudub eco-sertifikaadi info** (NULL). Eco-toodete osakaalu ei saa täpselt arvutada.
 
 ## Meeskonna töö
-(link meeskonna repole – lisad hiljem)
+[Meeskonna nädal 2 README](https://github.com/15sigrid/urbanstyle-sales-analytics/blob/main/week-2/README.md)
