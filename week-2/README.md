@@ -18,6 +18,8 @@ Uurisin `products` tabelit testkoopial (`products_test`, 362 rida):
 ## Failid
 - `week2_products_cleaning.sql` – kaardi C päringud koos tulemustega
 - `week2_learnings.md` – nädala 2 õppemärkmed
+- `toomase_puhastamisraport.md` – andmekvaliteedi raport Toomasele
+- `week2_kvaliteet.sql` – raporti päringud
 
 ## Tulemused
 
@@ -54,6 +56,15 @@ Duplikaadid (12) on testkoopiast eemaldatud ja kontrollitud: tooteid on 350, mit
 Lahtiseks jääb kaks asja, mis vajavad äripoole otsust:
 - **8 toote jaehind on omahinnast madalam.** Kas see on andmeviga või päris kahjumiga müük? Kuni selgumiseni on marginaalianalüüs ebatäpne.
 - **18 tootel puudub eco-sertifikaadi info** (NULL). Eco-toodete osakaalu ei saa täpselt arvutada.
+
+## Toomase puhastamisraport
+Leidsin müügitabelist 5116 koopiat, 380 e-postita klienti ja 50 vigast kuupäeva; tehisaru aitas päringuid struktureerida ja kontrollida, päringud käivitasin ja tulemused kontrollisin ise Supabase'is.
+
+Lõpuesitluseks valin duplikaadid, kuna need suurendavad müügitulu umbes 1,47 miljoni euro võrra ja muudavad iga müügiotsuse ebausaldusväärseks.
+
+- [Raport](toomase_puhastamisraport.md)
+- [Päringud](week2_kvaliteet.sql)
+
 
 ## Meeskonna töö
 [Meeskonna nädal 2 README](https://github.com/15sigrid/urbanstyle-sales-analytics/blob/main/week-2/README.md)
