@@ -38,11 +38,17 @@ Tiimi ühine slaid: [SalesAnalytics – Nädal 3](https://docs.google.com/presen
 
 ## Kokkuvõte Annale
 Enim müüke toov kanal on Pood, mis on klientide ja ostude arvu ning kogumüügi osas edukam kui online. 
+
 POOD: kliente 2278, oste 6656, kogumüük 1 902 430.30 €
+
 ONLINE: kliente 1706, oste 3462, kogumüük 1 006 747.68 €
+
 Oste kokku: 10118
+
 Efektiivseim müük kliendi kohta on taaskord poekanalis suurem, kui onlines: müük kliendi kohta  (752 vs 533 €). Samas keskmise ostu võrdluses on mõlemas kanalis summa suhteliselt ühtlane u 273–291€.
+
 Kolme (3) Kaupluse (Tallinn, Tartu, Pärnu) võrdluses on näha mastaapsuse mõju st Tallinna kaupluse ostude arv on 3,6× suurem kui Pärnus.
+
 Anna võiks suunata turunduse raha klientide tagasivõitmise ja online-müügikanali osakaalu suurendamise eesmärgiks - online-müük on poemüügist peaaegu poole väiksem (1,01 vs 1,90 milj €).
 
 ## Edasijõudnute tase
