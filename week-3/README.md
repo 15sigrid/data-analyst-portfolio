@@ -34,7 +34,7 @@ Tiimi ühine slaid: [SalesAnalytics – Nädal 3](https://docs.google.com/presen
 - poekanal toob 65% müügist (1,90 vs 1,01 milj €)
 - kõigi linnade kliendid ostavad poest ~1,5–2× rohkem kui veebist
 - jalanõudel on mõlemas kanalis kõige kallim keskmine ost (394 / 372 €)
-- keskmine ost on kõikjal ~273–291 €, erinevus tuleb ostude arvust
+- Keskmine ost kolmes (3) kaupluses ja online-kanalis sarnane ~273–291 €, erinevus tuleb ostude arvust
 
 ## Kokkuvõte Annale
 Enim müüke toov kanal on Pood, mis on klientide ja ostude arvu ning kogumüügi osas edukam kui online. 
@@ -55,11 +55,12 @@ Anna võiks suunata turunduse raha klientide tagasivõitmise ja online-müügika
 Uurisin: Kaupluste ja online müügikanali võrdlust 
 - 4 rida: 3 poodi + NULL = online.
 - Suurim kauplus: Tallinn (kogumüük 1 092 083.15 €).
-- Keskmine ost on kõigis kanalites ja poodides umbes 273–291€.
+- Keskmine ost kolmes (3) kaupluses ja online-kanalis sarnane ~273–291€.
 - Järeldus: pood ei müü rohkem seepärast, et ost oleks suurem, vaid seepärast, et oste on rohkem.
 - Äriline järeldus:
     1. Kas Tallinna, Tartu ja Pärnu kauplused on erinevad? Vaata oste ja keskmist ostu
-        -  V: Keskmine ost on kõigis kanalites ja poodides sarnane so 273–291€. Suurim erinevus ostude arvus: Tallinnas 3,6× rohkem kui Pärnus.
+        - V: Keskmine ost kolmes (3) kaupluses ja online-kanalis on sarnane so ~273–291€. 
+        - Suurim erinevus ostude arvus: Tallinnas 3,6× rohkem kui Pärnus.
     2. Kas mõni kauplus peaks rohkem online-müügile panustama?
         - V: Pärnu klientidele suunatud online-kampaania, et näha, kas Pärnu klientide ostude arv kasvab.
     3. Kuhu peaks Anna turunduse raha suunama?
@@ -68,7 +69,7 @@ Uurisin: Kaupluste ja online müügikanali võrdlust
 
 ## Andmete piirangud
 - külalisostud, ~10% ostudest, jäävad INNER JOIN-is välja
-- online-ostul pole poodi, store_location = NULL
+- online-ostul pole poodi, store_location = NULL, seega kaupluste kanalijaotust (GT edasijõudnute ülesanne) ei saa arvutada.
 - mida ei saanud hinnata: nt marginaal, kampaaniad.
 
 ## Mida õppisin
