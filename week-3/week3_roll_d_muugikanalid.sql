@@ -9,8 +9,8 @@
 
 -- Vaatan tabeli sales struktuuri
 SELECT * FROM sales LIMIT 5;   -- näitab 5 rida koos kõigi veergude nimedega
--- Tulemus: 11 veergu
--- sale_id, invoice_id, sale_date, customer_id, product_id, quantity, unit_price, total_price, channel, store_location, payment_method
+-- Tulemus: 12 veergu
+-- id, sale_id, invoice_id, sale_date, customer_id, product_id, quantity, unit_price, total_price, channel, store_location, payment_method
 
 -- Vaatan, millised müügikanalid on olemas. Mitu erinevat kanalit on?
 SELECT DISTINCT channel FROM sales ORDER BY channel;     -- DISTINCT näitab iga väärtust ainult üks kord
@@ -41,7 +41,7 @@ INNER JOIN customers c                           -- ühenda customers tabeliga (
     ON s.customer_id = c.customer_id             -- ühendamise tingimus: sama kliendi number
 GROUP BY s.channel, c.city                       -- grupp iga kanali + linna kohta
 ORDER BY müügikanal, kogumüük DESC;
--- Tulemus: Vastavalt kanalile erinevast linnast klientide koguarv ja üügisumma (2x12=24 rida - 12 linna 2 kanalit). Kanalid ühes veerus
+-- Tulemus: Vastavalt kanalile erinevast linnast klientide koguarv ja müügisumma (2x12=24 rida - 12 linna 2 kanalit). Kanalid ühes veerus
 
 -- Millistest linnadest kliendid milliseid kanaleid kasutavad?
 SELECT
@@ -122,7 +122,7 @@ GROUP BY s.channel
 ORDER BY müük_per_klient DESC;
 -- Tulemus: ilma külalisostudeta -  Pood - müük_per_klient 752.41. Online - müük_per_klient 532.67
 -- Vahe eelmise päringuga: Pood: müük_per_klient 82,72 (835.13-752.41). Online: müük_per_klient 57,45 (590.12-532.67)
--- Pood efektiivseima ka ilma külalisoste arvestamata.
+-- Pood efektiivseim ka ilma külalisoste arvestamata.
 
 -- =============================================
 -- EDASIJÕUDNUTE TASE (vabatahtlik)
@@ -140,7 +140,7 @@ GROUP BY s.store_location, s.channel
 ORDER BY kauplus, kogumüük DESC;
 -- Tulemus: 4 rida: 3 poodi + NULL = online.
 -- Suurim kauplus: Tallinn (kogumüük 1092083.15 €).
--- Keskmine ost on kõigis kanalites ja poodides umbes 273–291€.
+-- Keskmine ost kolmes (3) kaupluses ja online-kanalis on ca 273–291€.
 -- Järeldus: pood ei müü rohkem seepärast, et ost oleks suurem, vaid seepärast, et oste on rohkem.
 -- Kontroll: 1 058 + 3 801 + 1 797 = 6 656 poeostu (sama arv, mis eelmises päringus)
 
@@ -148,9 +148,11 @@ ORDER BY kauplus, kogumüük DESC;
 -- GT_Roll D: Äriline järeldus:
 -- =============================================
 -- 1. Kas Tallinna, Tartu ja Pärnu kauplused on erinevad? Vaata oste ja keskmist ostu
-        -- V: Keskmine ost on kõigis kanalites ja poodides sarnane so 273–291€. Suurim erinevus ostude arvus: Tallinnas 3,6× rohkem kui Pärnus.
+        -- V: Keskmine ost kolmes (3) kaupluses ja online-kanalis on sarnane so 273–291€.
+        -- Suurim erinevus ostude arvus: Tallinnas 3,6× rohkem kui Pärnus.
 -- 2. Kas mõni kauplus peaks rohkem online-müügile panustama?
         -- V: Pärnu klientidele suunatud online-kampaania, et näha, kas Pärnu klientide ostude arv kasvab.
+        -- Online-ost ei ole kauplusega seotud (store_location = NULL).
 -- 3. Kuhu peaks Anna turunduse raha suunama?
         -- V: Anna võiks suunata turunduse raha klientide tagasivõitmise ja online-müügikanali osakaalu suurendamise eesmärgil. 
-        -- Online-müük on poemüügist peaaegu poole väiksem (1,01 vs 1,90 milj €
+        -- Online-müük on poemüügist peaaegu poole väiksem (1,01 vs 1,90 milj €).
